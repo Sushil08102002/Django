@@ -1,3 +1,4 @@
+from django.contrib.auth.models import UserManager
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
     
@@ -12,7 +13,7 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     
     
     
-    # objects=CustomUserManager()
+    objects=UserManager()
     
     USERNAME_FIELD='email'
     REQUIRED_FIELDS =[]
