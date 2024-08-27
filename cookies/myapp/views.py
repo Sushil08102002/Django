@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 def index(request):
-    # Retrieve theme from cookies or default to 'light'
+    # Retrieve theme from cookies 
     theme = request.COOKIES.get('theme', 'light')
     return render(request, 'base.html', {'theme': theme})
 
