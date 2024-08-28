@@ -33,3 +33,21 @@ print("Serialized data:", serializer.data)
 from rest_framework.renderers import JSONRenderer
 json=JSONRenderer().render(serializer.data)
 print("json data:",json)
+
+
+'''The above process is of serialization process in which an Objct Data firstly get converted into python
+datatype and then converted into JSON (readable form) This process is called as Serialization or we can say that 
+pickling'''
+
+#now from here we start deserialization of our data
+
+import io
+from rest_framework.parsers import JSONParser
+
+stream=io.BytesIO(json)
+data=JSONParser().parse(stream)          #  this convert json data into python native datatypes
+
+print("coverted data into dicitionary:",data)
+
+serializer=CommentSerializer(data=data)
+print(serializer.is_valid(),serializer.validated_data)
