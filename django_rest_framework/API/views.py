@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from rest_framework import viewsets,generics,mixins
-from .serializers import ProfileSerializer,PostSerializer
-from .models import Profile,Post
+from django.shortcuts import render,get_object_or_404
+from rest_framework import viewsets,generics,mixins,viewsets
+from .serializers import ProfileSerializer,PostSerializer,BooksSerializer
+from .models import Profile,Post,Books
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.urls import reverse_lazy
@@ -72,4 +72,12 @@ class PostListRetrieve(mixins.RetrieveModelMixin,
     
     def delete(self,request,*args,**kwargs):
         return self.destroy(request,*args,**kwargs)
+
+class BooksViewSet(viewsets.ViewSet):
+    """A simple viewset for listing and retriving users"""
+    def list(self,request):
+        queryset=Books.objects.all()
+        serializer=BooksSerializer(queryset,many=True)
+        return Response(serializer.data)
+    
     
