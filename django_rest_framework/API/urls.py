@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import ProfileViewSet,hello_world,print_msg,UserList,PostList
+from .views import ProfileViewSet,hello_world,print_msg,UserList,PostList,PostListRetrieve
 from rest_framework.routers import DefaultRouter
 
 router=DefaultRouter()
@@ -10,5 +10,6 @@ urlpatterns = [
     path('hello/',hello_world,name='hello_world'),
     path('hello1/',print_msg),
     path('users/',UserList.as_view()),
-    path('post_list/',PostList.as_view())
+    path('post_list/',PostList.as_view()),
+    path('post_list/<int:pk>/',PostListRetrieve.as_view())
 ]

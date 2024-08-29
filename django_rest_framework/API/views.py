@@ -41,11 +41,35 @@ class UserList(generics.ListCreateAPIView):
     
     
 #here we are using mixins for implementation and practice
-class PostList(mixins.ListModelMixin,generics.GenericAPIView):
+class PostList(mixins.ListModelMixin,
+               mixins.CreateModelMixin,
+               generics.GenericAPIView):
     queryset=Post.objects.all()
     serializer_class=PostSerializer
     
-    def get(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):   # this is called as ListModelMixin return list of all data
         return self.list(request,*args,**kwargs)
     
+    def post(self,request,*args,**kwargs):  # this comes under CreateModelMixin
+        return self.create(request,*args,**kwargs)
+    
+    
+class PostListRetrieve(mixins.RetrieveModelMixin,
+                       mixins.UpdateModelMixin,
+                       mixins.DestroyModelMixin,
+                       generics.GenericAPIView):
+    queryset=Post.objects.all()
+    serializer_class=PostSerializer
+    
+    def get(self,request,*args,**kwargs):  #this is used for retriving a particular data with priamry key
+        return self.retrieve(request,*args,**kwargs)
+    
+    def put(self,request,*args,**kwargs):
+        return self.update(request,*args,**kwargs)
+    
+    def patch(self,request,*args,**kwargs):
+        return self.partial_update(request,*args,*kwargs)
+    
+    def delete(self,request,*args,**kwargs):
+        return self.destroy(request,*args,**kwargs)
     
