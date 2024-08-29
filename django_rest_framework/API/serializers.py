@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Profile,Hobby
+from .models import Profile,Hobby,Post
+from django.contrib.auth.models import User
 
 class HobbySerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +21,14 @@ class ProfileSerializer(serializers.ModelSerializer):
         for hobby in user_hobby:
             Hobby.objects.create(user=profile_instance,**hobby)
         return profile_instance
+    
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User  
+        fields='__all__'
+
+class PostSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model=Post
+        fields='__all__'
