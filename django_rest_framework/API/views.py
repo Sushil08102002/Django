@@ -73,11 +73,17 @@ class PostListRetrieve(mixins.RetrieveModelMixin,
     def delete(self,request,*args,**kwargs):
         return self.destroy(request,*args,**kwargs)
 
-class BooksViewSet(viewsets.ViewSet):
-    """A simple viewset for listing and retriving users"""
-    def list(self,request):
-        queryset=Books.objects.all()
-        serializer=BooksSerializer(queryset,many=True)
-        return Response(serializer.data)
+# class BooksViewSet(viewsets.ViewSet):
+#     """A simple viewset for listing and retriving users"""
+#     def list(self,request):
+#         queryset=Books.objects.all()
+#         serializer=BooksSerializer(queryset,many=True)
+#         return Response(serializer.data)
     
+'''now we make book viewset from modelViewset'''
+'''these is a model viewset that create all 
+   operations for model in a single class'''
+class BooksViewSet(viewsets.ModelViewSet):
+    serializer_class=BooksSerializer
+    queryset=Books.objects.all()
     
